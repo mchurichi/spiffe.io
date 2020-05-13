@@ -1,12 +1,8 @@
 ---
 title: Concepts
 description: An overview of SPIRE's architecture and fundamentals
+kind: about-spire
 weight: 22
-toc: true
-menu:
-  spire:
-    weight: 20
-    parent: 'spire-understand'
 ---
 
 SPIRE is a production-ready implementation of the [SPIFFE APIs](/spiffe) that performs node and workload attestation in order to securely issue SVIDs to workloads, and verify the SVIDs of other workloads, based on a predefined set of conditions. 

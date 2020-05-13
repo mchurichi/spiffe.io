@@ -7,6 +7,7 @@
 {{- $cssProdOpts  := (dict "includePaths" $includes "targetPath" $cssOutput "outputStyle" "compressed") }}
 {{- $cssOpts      := cond $inServerMode $cssDevOpts $cssProdOpts }}
 {{- $css          := resources.Get $sass | resources.ExecuteAsTemplate $sass . | toCSS $cssOpts }}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.7.0/tocbot.css">
 {{- if $inServerMode }}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}">
 {{- else }}

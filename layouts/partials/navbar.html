@@ -55,31 +55,6 @@
           </div>
         </div>
 
-        <div class="navbar-item has-dropdown is-hoverable has-text-weight-bold">
-          <a class="navbar-link" href="/spire">
-            About SPIRE
-          </a>
-
-          <div class="navbar-dropdown">
-            {{- range .Site.Menus.spire }}
-              {{- if .HasChildren }}
-                <a class="navbar-item" href="{{ .URL }}">
-                  <span>{{ .Title }}</span>
-                </a>
-                {{- range .Children }}
-                  <a class="navbar-item navbar-item-sub" href="{{ .URL }}">
-                    &raquo;	  {{ .Title }}
-                  </a>
-                {{- end }}
-              {{- else }}
-                <a class="navbar-item" href="{{ .URL }}">
-                  <span>{{ .Title }}</span>
-                </a>
-              {{- end }}
-            {{- end }}
-          </div>
-        </div>
-
         <a class="navbar-item has-text-weight-bold" href="/downloads">
           Get SPIRE
         </a>
@@ -109,6 +84,10 @@
             </div>
           </div>
         </div>
+
+        <a class="navbar-item has-text-weight-bold" href="/docs/latest">
+          Documentation
+        </a>
 
         <div class="navbar-item">
           <p class="control">

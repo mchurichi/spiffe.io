@@ -1,13 +1,14 @@
 ---
 title: Quickstart for Kubernetes
 description: Quickly get SPIRE up and running on a Kubernetes cluster
+kind: try-spire
 weight: 3
-toc: true
+# toc: true
 aliases: [tutorial-spire-on-kubernetes, tutorial-spire-on-kubernetes/]
-menu:
-  spire:
-    weight: 20
-    parent: 'spire-try'
+# menu:
+#   spire:
+#     weight: 20
+#     parent: 'spire-try'
 ---
 
 ## Overview

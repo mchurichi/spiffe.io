@@ -2,11 +2,9 @@
 title: Install SPIRE Agents
 short: Install Agent
 description: How to install SPIRE Agents on Linux and Kubernetes
+kind: documentation
 weight: 120
-toc: true
-menu:
-  spire:
-    parent: 'spire-docs'
+# toc: true
 ---
 
 # Installing SPIRE Agents on Linux

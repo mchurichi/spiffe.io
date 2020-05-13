@@ -1,12 +1,8 @@
 ---
 title: Quickstart for Linux and MacOS X
 description: Quickly get SPIRE up and running on Unix and Mac OS X
+kind: try-spire
 weight: 1
-toc: true
-menu:
-  spire:
-    weight: 20
-    parent: 'spire-try'
 ---
 
 # Overview

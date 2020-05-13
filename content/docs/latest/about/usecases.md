@@ -2,12 +2,8 @@
 title: SPIRE Use Cases
 short: Use Cases
 description: How to use SPIRE to solve common problems
+kind: about-spire
 weight: 21
-toc: true
-menu:
-  spire:
-    weight: 20
-    parent: 'spire-understand'
 ---
 
 # Authenticating workloads in untrusted networks using mTLS
