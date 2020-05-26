@@ -3,7 +3,7 @@ title: How does SPIRE compare to other tools?
 short: Comparisons
 description: Understand SPIRE by comparing and contrasting it to related systems
 kind: about-spire
-weight: 23
+weight: 20
 ---
 
 # Secret Stores

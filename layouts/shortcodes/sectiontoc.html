@@ -1,11 +1,12 @@
-{{- $docs         := .Page.CurrentSection.RegularPages }}
+{{- $allDocs    := where site.RegularPages "Section" "docs" -}}
+{{- $spireTocs := where $allDocs ".Params.kind" "eq" "about-spire" -}}
 {{- $currentUrl   := .Page.URL }}
 
 <ul>
-{{ range $docs }}
+{{ range $spireTocs }}
     <li class="{{- if eq .URL $currentUrl }}is-active{{- end }}">
         <a href="{{ .URL }}">{{ .Title }}</a>
-        <p>{{ .Description }}</p> 
+        <p>{{ .Description }}</p>
     </li>
 {{ end }}
 </ul>

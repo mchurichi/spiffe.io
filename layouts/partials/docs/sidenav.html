@@ -1,8 +1,8 @@
 {{ $docsHome   := .CurrentSection }}
 {{ $allDocs    := where site.RegularPages "Section" "docs" }}
-{{ $docs       := where $allDocs ".Params.kind" "eq" "documentation" }}
-{{ $trySpire   := where $allDocs ".Params.kind" "eq" "try-spire" }}
 {{ $aboutSpire := where $allDocs ".Params.kind" "eq" "about-spire" }}
+{{ $trySpire   := where $allDocs ".Params.kind" "eq" "try-spire" }}
+{{ $docs       := where $allDocs ".Params.kind" "eq" "documentation" }}
 {{ $pageUrl    := .URL }}
 {{ $isDocsHome := eq .URL $docsHome.URL }}
 {{ $version    := index (split .File.Path "/") 1 }}
@@ -10,7 +10,7 @@
 {{ $latest     := "v0.10.0" }}
 
 <span class="docs-nav-title">
-  Core Docs
+  About SPIRE
 </span>
 
 {{ $docsHomeVersion := $version }}
@@ -27,10 +27,10 @@
 </div>
 {{ end }}
 
-{{ range $docs }}
-{{ partial "docs/sidenav-link.html" (dict "ctx" . "pageUrl" $pageUrl "version" $version) }}
+{{ range $aboutSpire }}
+  {{- partial "docs/sidenav-link.html" (dict "ctx" . "pageUrl" $pageUrl "version" $version) -}}
 {{ end }}
 
 {{ partial "docs/sidenav-section.html" ( dict "ctx" . "sectionTitle" "Try SPIRE" "section" $trySpire "pageUrl" $pageUrl "version" $version ) }}
 
-{{ partial "docs/sidenav-section.html" ( dict "ctx" . "sectionTitle" "About SPIRE" "section" $aboutSpire "pageUrl" $pageUrl "version" $version ) }}
+{{ partial "docs/sidenav-section.html" ( dict "ctx" . "sectionTitle" "Documentation" "section" $docs "pageUrl" $pageUrl "version" $version ) }}

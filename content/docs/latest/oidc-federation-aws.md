@@ -2,7 +2,7 @@
 title: AWS OIDC Authentication
 description: Using SPIRE and OIDC to Authenticate Workloads on Kubernetes to AWS S3
 kind: try-spire
-weight: 4
+weight: 120
 ---
 
 This tutorial builds on the [Kubernetes Quickstart](/spire/try/getting-started-k8s/) guide to describe how a SPIRE identified workload can, using a JWT-SVID, authenticate to Amazon AWS APIs, assume an AWS IAM role, and retrieve data from an AWS S3 bucket. This avoids the need to create and deploy AWS IAM credentials with the workload itself.

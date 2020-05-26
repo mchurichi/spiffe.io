@@ -1,6 +1,7 @@
 {{- $isHome          := .IsHome }}
 {{- $isSpirePage     := eq .Section "spire" }}
 {{- $isDownloadsPage := eq .Section "downloads" }}
+{{- $isDocsPage      := eq .Section "docs" }}
 {{- $spiffeLogo      := "/img/logos/spiffe/horizontal/color/spiffe-horizontal-color.png" | relURL }}
 {{- $spireLogo       := "/img/logos/spire/horizontal/color/spire-horizontal-color.png" | relURL }}
 {{- $logoUrl         := cond $isSpirePage $spireLogo $spiffeLogo }}
@@ -14,20 +15,20 @@
 <nav class="navbar is-fixed-top is-light">
   <div class="container">
     <div class="navbar-brand">
-      {{- if not $isHome }}
+      {{- if and (not $isHome) (not $isDocsPage) }}
       <a class="navbar-item" href="{{ .Site.BaseURL }}">
         <img src="{{ $logoUrl }}">
       </a>
       {{- end }}
 
-      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target=".navbar-top">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
       </a>
     </div>
 
-    <div class="navbar-menu">
+    <div class="navbar-menu navbar-top">
 
       <div class="navbar-end">
 
@@ -55,10 +56,6 @@
           </div>
         </div>
 
-        <a class="navbar-item has-text-weight-bold" href="/downloads">
-          Get SPIRE
-        </a>
-
         <div class="navbar-item has-dropdown is-hoverable has-text-weight-bold">
           <a class="navbar-link" href="/community">
             Community
@@ -85,8 +82,12 @@
           </div>
         </div>
 
+        <a class="navbar-item has-text-weight-bold" href="/downloads">
+          Get SPIRE
+        </a>
+
         <a class="navbar-item has-text-weight-bold" href="/docs/latest">
-          Documentation
+          SPIRE Documentation
         </a>
 
         <div class="navbar-item">

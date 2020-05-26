@@ -3,7 +3,7 @@ title: Install SPIRE Agents
 short: Install Agent
 description: How to install SPIRE Agents on Linux and Kubernetes
 kind: documentation
-weight: 120
+weight: 20
 # toc: true
 ---
 

@@ -1,9 +1,9 @@
 ---
 title: Install SPIRE Server
-# short: Install Server
+short: Install Server
 kind: documentation
-# description: How to install the SPIRE Server on Linux and Kubernetes
-weight: 1
+description: How to install the SPIRE Server on Linux and Kubernetes
+weight: 10
 # toc: true
 ---
 
