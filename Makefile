@@ -23,6 +23,7 @@ production-build:
 		--ignoreCache
 
 preview-build:
+	python -c "print('python test')"
 	hugo \
 		--gc \
 		--ignoreCache \
