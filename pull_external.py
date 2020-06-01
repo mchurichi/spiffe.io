@@ -30,13 +30,11 @@ def _find_sources(content_dir: str) -> List[str]:
 
 
 def _get_abs_content_path(content_dir: str) -> str:
-    return os.path.realpath(os.path.join(os.path.dirname(__file__), "../", content_dir))
+    return os.path.realpath(os.path.join(os.path.dirname(__file__), content_dir))
 
 
 def _get_abs_checkout_path() -> str:
-    return os.path.realpath(
-        os.path.join(os.path.dirname(__file__), "../", CHECKOUT_DIR)
-    )
+    return os.path.realpath(os.path.join(os.path.dirname(__file__), CHECKOUT_DIR))
 
 
 def _get_repo_url_from_pull_url(url: str) -> str:
@@ -151,5 +149,5 @@ def main():
 
 
 if __name__ == "__main__":
-    # os.system("rm -rf ./checkouts/")
+    os.system("rm -rf ./checkouts/")
     main()
