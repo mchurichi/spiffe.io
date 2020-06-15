@@ -1,0 +1,23 @@
+spiffe-docs:
+    source: https://github.com/spiffe/spiffe
+    heading: SPIFFE documentation
+spire-docs:
+    heading: SPIRE documentation
+    source: https://github.com/spiffe/spire
+    pullDir: doc
+    pullFiles:
+        - /README.md
+        - /CONTRIBUTING.md
+    transform:
+        SPIRE101.md:
+            rename: SPIRE-INTRO.md
+            frontMatter:
+                short: SPIRE overview
+                weight: 100
+        telemetry_config.md:
+            frontMatter:
+                title: Gathering telemetry
+                weight: 30
+go-spiffe-examples:
+    heading: Go-SPIFFE examples
+    source: https://github.com/spiffe/go-spiffe/tree

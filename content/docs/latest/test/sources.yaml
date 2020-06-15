@@ -1,8 +1,0 @@
-README.md:
-  pull: https://github.com/spiffe/spire/blob/v0.10.0/README.md
-  frontMatter:
-    title: SPIRE's readme
-    short: SPIRE's readme short title
-    menu: 
-      community:
-        weight: 10
