@@ -30,7 +30,6 @@
 <a class="docs-nav-item{{ if $isDocsHome }} is-active{{ end }}" href="/docs/{{ $docsHomeVersion }}">
   {{ $docsHome.Name }}
 </a>
-{{*/}}
 
 {{ if $isDocsHome }}
 <div class="toc">
@@ -38,9 +37,10 @@
 </div>
 {{ end }}
 
-{{/* range $aboutSpire }}
+{{ range $aboutSpire }}
   {{- partial "docs/sidenav-link.html" (dict "ctx" . "pageUrl" $pageUrl "version" $version) -}}
-{{ end */}}
+{{ end }}
+{{*/}}
 
 <span class="docs-nav-section">
   SPIFFE
