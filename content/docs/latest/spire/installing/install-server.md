@@ -1,14 +1,10 @@
 ---
-title: Install SPIRE Server
+title: Install the SPIRE Server
 short: Install Server
-kind: documentation
+kind: spire-installing
 description: How to install the SPIRE Server on Linux and Kubernetes
-weight: 10
-# toc: true
+weight: 60
 ---
-
-# How to install the SPIRE Server on Linux 
-
 ## Step 1: Obtain the SPIRE Binaries
 
 Pre-built SPIRE releases can be found on the [SPIRE downloads page](/downloads#spire). The tarballs contain both server and agent binaries.

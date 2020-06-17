@@ -15,7 +15,7 @@
 <nav class="navbar is-fixed-top is-light">
   <div class="container">
     <div class="navbar-brand">
-      {{- if and (not $isHome) (not $isDocsPage) }}
+      {{- if not $isHome }}
       <a class="navbar-item" href="{{ .Site.BaseURL }}">
         <img src="{{ $logoUrl }}">
       </a>
@@ -32,62 +32,12 @@
 
       <div class="navbar-end">
 
-      <div class="navbar-item has-dropdown is-hoverable has-text-weight-bold">
-        <a class="navbar-link" href="/spiffe">
-          About SPIFFE
-        </a>
-        <div class="navbar-dropdown">
-            {{- range .Site.Menus.spiffe }}
-              {{- if .HasChildren }}
-                <a class="navbar-item" href="{{ .URL }}">
-                  <span>{{ .Title }}</span>
-                </a>
-                {{- range .Children }}
-                  <a class="navbar-item navbar-item-sub" href="{{ .URL }}">
-                    {{ .Title }}
-                  </a>
-                {{- end }}
-              {{- else }}
-                <a class="navbar-item" href="{{ .URL }}">
-                  <span>{{ .Title }}</span>
-                </a>
-              {{- end }}
-            {{- end }}
-          </div>
-        </div>
-
-        <div class="navbar-item has-dropdown is-hoverable has-text-weight-bold">
-          <a class="navbar-link" href="/community">
-            Community
-          </a>
-
-          <div class="navbar-dropdown">
-              {{- range .Site.Menus.community }}
-                {{- if .HasChildren }}
-                  <a class="navbar-item" href="{{ .URL }}">
-                    <span>{{ .Title }}</span>
-                  </a>
-                  {{- range .Children }}
-                    <a class="navbar-item navbar-item-sub" href="{{ .URL }}">
-                      {{ .Title }}
-                    </a>
-                  {{- end }}
-                {{- else }}
-                  <a class="navbar-item" href="{{ .URL }}">
-                    <span>{{ .Title }}</span>
-                  </a>
-                {{- end }}
-              {{- end }}
-            </div>
-          </div>
-        </div>
-
-        <a class="navbar-item has-text-weight-bold" href="/downloads">
+        <a class="navbar-item has-text-weight-bold" href="/downloads/">
           Get SPIRE
         </a>
 
-        <a class="navbar-item has-text-weight-bold" href="/docs/latest">
-          SPIRE Documentation
+        <a class="navbar-item has-text-weight-bold" href="/docs/latest/">
+          Documentation
         </a>
 
         <div class="navbar-item">

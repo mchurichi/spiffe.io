@@ -2,8 +2,7 @@
 title: SPIRE Use Cases
 short: Use Cases
 description: How to use SPIRE to solve common problems
-kind: about-spire
-weight: 21
+kind: spire-usecases
 ---
 
 # Authenticating workloads in untrusted networks using mTLS

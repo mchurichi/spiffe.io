@@ -6,11 +6,12 @@
 {{- $isRoot := eq (len (split .ctx.File.Path "/")) 2 -}}
 {{- $isThisPage := eq .ctx.URL .pageUrl -}}
 {{- $title := cond (isset .ctx.Params "navtitle") (.ctx.Params.navtitle) .ctx.Title -}}
+{{- $short := cond (isset .ctx.Params "short") (.ctx.Params.short) $title -}}
 {{- if not $isRoot -}}
 {{- if eq .version $contentVersion -}}
 {{- $linkRef := .ctx.URL -}}
 <a class="docs-nav-item{{ if $isThisPage }} is-active{{ end }}" href="{{ $linkRef }}">
-  {{ $title }}
+  {{ $short }}
 </a>
 {{- if $isThisPage -}}
 <div class="toc">

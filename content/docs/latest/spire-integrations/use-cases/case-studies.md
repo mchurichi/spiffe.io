@@ -1,10 +1,9 @@
 ---
-title: Case Studies
+title: SPIRE Case Studies
+short: Case Studies
 description: Real world examples of how SPIFFE and SPIRE are being used
+kind: spire-usecases
 weight: 20
-menu:
-  spiffe:
-    weight: 20
 ---
 
 {{< presentations category="case-study" >}}

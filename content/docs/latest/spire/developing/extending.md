@@ -1,9 +1,9 @@
 ---
 title: Extend SPIRE
+short: Extending
+kind: spire-developing
 description: Learn how to extend SPIRE with third-party plugins
-kind: documentation
-weight: 150
-toc: true
+weight: 100
 ---
 
 SPIRE is highly extensible via a plugin framework that allows many core operations to be added and customized.

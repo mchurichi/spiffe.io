@@ -1,5 +1,6 @@
 {{ $home       := site.BaseURL }}
 {{ $logo       := site.Params.logos.sidebar | relURL }}
+{{ $spiffeLogo := "/img/logos/spiffe/horizontal/color/spiffe-horizontal-color.png" | relURL }}
 {{ $releases   := site.Data.releases }}
 {{/* $latest     := index $releases 1 */}}
 {{ $latest     := "v0.10.0" }}
@@ -7,11 +8,12 @@
 {{ $isLatest   := or (eq $version $latest) (eq $version "latest") }}
 <div class="dashboard-panel left has-background-white-bis is-hidden-mobile">
   <div class="dashboard-panel-header has-text-centered">
-    <!-- <div class="dashboard-panel-header-logo">
+    {{/*}}
+    <div class="dashboard-panel-header-logo">
       <a href="{{ $home }}">
-        <img src="{{ $logo }}">
+        <img src="{{ $spiffeLogo }}">
       </a>
-    </div> -->
+    </div>
 
     <div class="dropdown is-left">
       <div class="dropdown-trigger">
@@ -66,6 +68,7 @@
         </div>
       </div>
     </div>
+    {{*/}}
   </div>
 
   <div class="dashboard-panel-content is-scrollable">

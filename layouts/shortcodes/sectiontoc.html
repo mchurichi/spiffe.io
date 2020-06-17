@@ -1,6 +1,7 @@
+{{- $kind       := .Get 0 -}}
 {{- $allDocs    := where site.RegularPages "Section" "docs" -}}
-{{- $spireTocs := where $allDocs ".Params.kind" "eq" "about-spire" -}}
-{{- $currentUrl   := .Page.URL }}
+{{- $spireTocs  := where $allDocs ".Params.kind" "eq" $kind -}}
+{{- $currentUrl := .Page.URL }}
 
 <ul>
 {{ range $spireTocs }}

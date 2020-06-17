@@ -2,8 +2,9 @@
 title: SPIFFE Overview
 short: Overview
 description: An overview of the SPIFFE specification
-weight: 1
-toc: true
+kind: spiffe
+weight: 10
+aliases: [/docs/latest]
 ---
 
 **SPIFFE**, the Secure Production Identity Framework for Everyone, is a set of open-source standards for securely identifying software systems in dynamic and heterogeneous environments. Systems that adopt SPIFFE can easily and reliably mutually authenticate wherever they are running.

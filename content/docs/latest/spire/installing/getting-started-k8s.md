@@ -1,17 +1,12 @@
 ---
 title: Quickstart for Kubernetes
 description: Quickly get SPIRE up and running on a Kubernetes cluster
-kind: try-spire
-weight: 100
-# toc: true
+kind: spire-installing
+weight: 50
 aliases: [tutorial-spire-on-kubernetes, tutorial-spire-on-kubernetes/]
-# menu:
-#   spire:
-#     weight: 20
-#     parent: 'spire-try'
 ---
 
-## Overview
+# Overview
 
 This guide walks you through getting a SPIRE Server and SPIRE Agent running in a Kubernetes cluster, and configuring a workload container to access SPIRE.
 

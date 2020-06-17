@@ -1,11 +1,10 @@
 ---
 title: Configuring SPIRE
+short: Configuring
+kind: spire-using
 description: How to configure SPIRE for your environment
-kind: documentation
-weight: 130
-toc: true
+weight: 80
 ---
-
 To customize the behavior of the SPIRE Server and SPIRE Agent to meet your application’s needs you edit configuration files for the server and agent. 
 
 # How to configure SPIRE

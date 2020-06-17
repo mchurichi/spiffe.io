@@ -1,14 +1,9 @@
 ---
 title: SPIFFE Concepts
 short: Concepts
-weight: 10
-toc: true
-menu:
-  spiffe:
-    weight: 20
+weight: 20
+kind: spiffe
 ---
-
-# SPIFFE Concepts
 
 This section looks at some basic concepts in SPIFFE that we refer to frequently throughout this overview.
 

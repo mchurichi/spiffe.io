@@ -1,10 +1,9 @@
 ---
 title: Get Involved
+short: Get Involved
+kind: spire-developing
 description: How to navigate and connect with the SPIFFE community
-weight: 10
-menu: 
-  community:
-    weight: 10
+weight: 150
 ---
 
 SPIFFE is guided by a small but very active community of passionate software engineers with empathy for the problems that the project is tackling.

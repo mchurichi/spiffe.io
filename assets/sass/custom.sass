@@ -1,12 +1,18 @@
 .docs-nav
   overflow: hidden
 
+  &-section
+    +desktop
+      font-size: 1.5em
+    +touch
+      font-size: 1.2em
+
   &-title
     +desktop
-      font-size: 1.2rem
+      font-size: 1rem
       margin-bottom: .5rem
     +touch
-      font-size: 1rem
+      font-size: .8rem
       margin-bottom: .4rem
 
     display: block
@@ -14,13 +20,19 @@
     color: $primary
     font-weight: 300
 
+    a
+      color: $primary
+      
+      &:hover
+          color: $blue
+
   &-item
     +desktop
-      font-size: 1rem
+      font-size: .9rem
       margin-left: .5rem
       line-height: 130%
     +touch
-      font-size: .8rem
+      font-size: .7rem
       margin-left: .4rem
       line-height: 110%
 
@@ -40,7 +52,8 @@
       margin-top: .4rem
 
   &-hr
-    background-color: $secondary
+    background-color: $light-separator
+    margin: 1em 0;
     height: 1px
 
 .figure

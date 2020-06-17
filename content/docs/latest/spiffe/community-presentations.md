@@ -1,10 +1,9 @@
 ---
 title: Community Presentations
 description: Resources presented by the SPIFFE community
-weight: 20
-menu:
-  community:
-    weight: 20
+short: Community Presentations
+kind: spiffe
+weight: 30
 ---
 
 The following presentations, podcasts, and blog posts demonstrate how people have used SPIFFE and SPIRE to address complex software infrastructure challenges.
