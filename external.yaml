@@ -1,23 +1,47 @@
-spiffe-docs:
-    source: https://github.com/spiffe/spiffe
-    heading: SPIFFE documentation
-spire-docs:
-    heading: SPIRE documentation
+spire/understand:
     source: https://github.com/spiffe/spire
-    pullDir: doc
+    # pullDir: doc
     pullFiles:
-        - /README.md
-        - /CONTRIBUTING.md
+        - doc/SPIRE101.md
     transform:
         SPIRE101.md:
-            rename: SPIRE-INTRO.md
+            # rename: spiffe/understand/SPIRE-INTRO.md
             frontMatter:
-                short: SPIRE overview
+                title: SPIRE Overview
+                short: SPIRE 101
+                kind: spire-understand
                 weight: 100
+spire/installing:
+    source: https://github.com/spiffe/spire
+    pullFiles:
+        - doc/upgrading.md
+    transform:
+        upgrading.md:
+            frontMatter:
+                short: Upgrade/Downgrade SPIRE
+                kind: spire-installing
+                weight: 80
+spire/using:
+    source: https://github.com/spiffe/spire
+    pullFiles:
+        - doc/spire_agent.md
+        - doc/spire_server.md
+        - doc/telemetry_config.md
+        - doc/scaling_spire.md
+    transform:
+        spire_agent.md:
+            frontMatter:
+                title: SPIRE Agent Configuration Reference
+                kind: spire-using
+        spire_server.md:
+            frontMatter:
+                title: SPIRE Server Configuration Reference
+                kind: spire-using
         telemetry_config.md:
             frontMatter:
-                title: Gathering telemetry
-                weight: 30
-go-spiffe-examples:
-    heading: Go-SPIFFE examples
-    source: https://github.com/spiffe/go-spiffe/tree
+                title: SPIRE Telemetry Configuration
+                kind: spire-using
+        scaling_spire.md:
+            frontMatter:
+                title: Scaling SPIRE
+                kind: spire-using

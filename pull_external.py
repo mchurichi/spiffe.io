@@ -37,7 +37,7 @@ def get_file_content(filename: str, remove_heading=False) -> (str, str):
     with open(filename, "r") as f:
         raw = f.readlines()
         if not remove_heading:
-            return "\n".join(raw)
+            return "".join(raw)
 
         heading = None
         for i in range(len(raw)):
@@ -47,7 +47,7 @@ def get_file_content(filename: str, remove_heading=False) -> (str, str):
                 continue
 
             if not raw[i].startswith("#") and not raw[i].strip() == "":
-                return "\n".join(raw[i:]), heading
+                return "".join(raw[i:]), heading
 
 
 def generate_yaml_front_matter(front_matter: dict = {}) -> List[str]:
@@ -108,8 +108,31 @@ def pull_directories(yaml_external: dict):
                 )
 
 
+def pull_files(yaml_external: dict):
+    content: dict
+    for target_dir, content in yaml_external.items():
+        pull_files: List[str] = content.get("pullFiles", None)
+        if not pull_files:
+            continue
+
+        abs_target_path = get_abs_dir_path(target_dir)
+        repo_owner, repo_name = get_canonical_repo_from_url(content.get("source"))
+        repo_checkout_base_path = os.path.join(CHECKOUT_DIR, repo_owner, repo_name)
+
+        for rel_file in pull_files:
+            filename = os.path.basename(rel_file)
+            copy_file(
+                repo_checkout_path=repo_checkout_base_path,
+                pull_dir="",
+                rel_file_path=rel_file,
+                target_dir=target_dir,
+                transform_file=content.get("transform", {}).get(filename, None),
+                remove_heading=True,
+            )
+
+
 def copy_file(
-    base_src_path: str,
+    repo_checkout_path: str,
     pull_dir: str,
     rel_file_path: str,
     target_dir: str,
@@ -119,12 +142,12 @@ def copy_file(
     file_name = os.path.basename(rel_file_path)
 
     # create dirs to target file
-    abs_base_src_path = os.path.abspath(base_src_path)
+    abs_base_src_path = os.path.abspath(repo_checkout_path)
     abs_path_to_source_file = os.path.abspath(
         os.path.join(abs_base_src_path, pull_dir, rel_file_path)
     )
     abs_path_to_target_file = os.path.abspath(
-        os.path.join("content/docs/latest", target_dir, rel_file_path)
+        os.path.join("content/docs/latest", target_dir, file_name)
     )
 
     path_to_target_file = Path(os.path.dirname(abs_path_to_target_file))
@@ -169,6 +192,7 @@ def main():
     # Testing, uncomment
     clone_repos(repos_to_clone)
     pull_directories(yaml_external)
+    pull_files(yaml_external)
 
 
 if __name__ == "__main__":
