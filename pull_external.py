@@ -2,13 +2,14 @@ import yaml
 import os
 import shutil
 import re
-from typing import List, Set
+from typing import List, Set, Tuple, Pattern, Match, AnyStr
 from urllib.parse import urlparse
 from pathlib import Path
 
 CHECKOUT_DIR = "checkouts"
 GIT_CLONE_CMD = "git clone {} ./checkouts/{}/{}"
-RE_EXTRACT_TITLE = re.compile("([#\s]*)(?P<title>.*)")
+RE_EXTRACT_TITLE: Pattern[str] = re.compile("([#\s]*)(?P<title>.*)")
+RE_EXTRACT_IMAGES: Pattern[AnyStr] = re.compile("\!\[(?P<lat>.*)\]\((?P<url>.*)\)")
 
 
 def read_yaml(file_name: str) -> dict:
@@ -33,7 +34,7 @@ def get_canonical_repo_from_url(url: str) -> (str, str):
     return repo_owner, repo_name
 
 
-def get_file_content(filename: str, remove_heading=False) -> (str, str):
+def get_file_content(filename: str, remove_heading=False) -> Tuple[str, str]:
     with open(filename, "r") as f:
         raw = f.readlines()
         if not remove_heading:
@@ -42,7 +43,7 @@ def get_file_content(filename: str, remove_heading=False) -> (str, str):
         heading = None
         for i in range(len(raw)):
             if raw[i].startswith("#"):
-                heading: str = RE_EXTRACT_TITLE.match(raw[i]).group("title")
+                heading = RE_EXTRACT_TITLE.match(raw[i]).group("title")
                 heading = '"' + heading.replace('"', '\\"') + '"'
                 continue
 
@@ -172,7 +173,17 @@ def copy_file(
         if front_matter:
             target_file.writelines(generate_yaml_front_matter(front_matter))
 
-        target_file.write(content)
+        final_content = process_content(content)
+        target_file.write(final_content)
+
+
+def process_content(content: str):
+    # ![SPIRE101](images/SPIRE101.png)
+    match: Match
+    for match in RE_EXTRACT_IMAGES.finditer(content):
+        print(match.group("url"))
+
+    return content
 
 
 def main():
@@ -190,12 +201,12 @@ def main():
         print("Pull repo {}...".format(repo))
 
     # Testing, uncomment
-    clone_repos(repos_to_clone)
+    # clone_repos(repos_to_clone)
     pull_directories(yaml_external)
     pull_files(yaml_external)
 
 
 if __name__ == "__main__":
     # Testing, uncomment
-    os.system("rm -rf ./checkouts/")
+    # os.system("rm -rf ./checkouts/")
     main()
