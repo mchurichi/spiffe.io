@@ -201,12 +201,12 @@ def main():
         print("Pull repo {}...".format(repo))
 
     # Testing, uncomment
-    # clone_repos(repos_to_clone)
+    clone_repos(repos_to_clone)
     pull_directories(yaml_external)
     pull_files(yaml_external)
 
 
 if __name__ == "__main__":
     # Testing, uncomment
-    # os.system("rm -rf ./checkouts/")
+    os.system("rm -rf ./checkouts/")
     main()
