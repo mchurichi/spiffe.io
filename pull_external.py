@@ -2,39 +2,59 @@ import yaml
 import os
 import shutil
 import re
-from typing import List, Set, Tuple, Pattern, Match, AnyStr
+from typing import List, Set, Tuple, Pattern, Match
 from urllib.parse import urlparse
 from pathlib import Path
 
 CHECKOUT_DIR = "checkouts"
-GIT_CLONE_CMD = "git clone {} ./checkouts/{}/{}"
+GIT_CLONE_CMD = "git clone {{}} ./{}/{{}}/{{}}".format(CHECKOUT_DIR)
 RE_EXTRACT_TITLE: Pattern[str] = re.compile("([#\s]*)(?P<title>.*)")
-RE_EXTRACT_IMAGES: Pattern[AnyStr] = re.compile("\!\[(?P<lat>.*)\]\((?P<url>.*)\)")
+RE_EXTRACT_IMAGES: Pattern[str] = re.compile("\!\[(?P<alt>.*)\]\((?P<url>.*)\)")
+RE_EXTRACT_LINKS: Pattern[str] = re.compile(
+    "\[(?P<alt>.*)\]\((?P<rel>\.?\/)(?P<url>.*)\)"
+)
 
 
-def read_yaml(file_name: str) -> dict:
+def main():
+    os.system("rm -rf ./{}/".format(CHECKOUT_DIR))
+    yaml_external = _read_yaml("external.yaml")
+    repos_to_clone: Set[str] = set()
+    directories_to_create: List[str] = []
+
+    content: dict
+    for directory, content in yaml_external.items():
+        directories_to_create.append(directory)
+        print("Create {} directory...".format(directory))
+
+        repo = _get_repo_url_from_pull_url(content.get("source"))
+        repos_to_clone.add(repo)
+        print("Pull repo {}...".format(repo))
+
+    _clone_repos(repos_to_clone)
+    # pull_directories(yaml_external)
+    generated_files = _pull_files(yaml_external)
+    _generate_gitignore(generated_files)
+
+
+def _read_yaml(file_name: str) -> dict:
     with open(file_name, "r", encoding="utf-8") as stream:
         yaml_file = yaml.safe_load(stream)
         return yaml_file
 
 
-def get_abs_content_path(content_dir: str) -> str:
-    return os.path.realpath(os.path.join(os.path.dirname(__file__), content_dir))
-
-
-def get_repo_url_from_pull_url(url: str) -> str:
+def _get_repo_url_from_pull_url(url: str) -> str:
     parsed = urlparse(url)
-    repo_owner, repo_name = get_canonical_repo_from_url(url)
+    repo_owner, repo_name = _get_canonical_repo_from_url(url)
     return "https://{}/{}/{}".format(parsed.netloc, repo_owner, repo_name)
 
 
-def get_canonical_repo_from_url(url: str) -> (str, str):
+def _get_canonical_repo_from_url(url: str) -> Tuple[str, str]:
     parsed = urlparse(url)
     repo_owner, repo_name = parsed.path[1:].split("/")[:2]
     return repo_owner, repo_name
 
 
-def get_file_content(filename: str, remove_heading=False) -> Tuple[str, str]:
+def _get_file_content(filename: str, remove_heading=False) -> Tuple[str, str]:
     with open(filename, "r") as f:
         raw = f.readlines()
         if not remove_heading:
@@ -51,7 +71,7 @@ def get_file_content(filename: str, remove_heading=False) -> Tuple[str, str]:
                 return "".join(raw[i:]), heading
 
 
-def generate_yaml_front_matter(front_matter: dict = {}) -> List[str]:
+def _generate_yaml_front_matter(front_matter: dict = {}) -> List[str]:
     fm = ["---"]
     for key, value in front_matter.items():
         if type(value) == dict:
@@ -64,104 +84,107 @@ def generate_yaml_front_matter(front_matter: dict = {}) -> List[str]:
     return fm
 
 
-def clone_repos(repos: List[str]):
+def _clone_repos(repos: List[str]):
     for repo_url in repos:
-        repo_owner, repo_name = get_canonical_repo_from_url(repo_url)
+        repo_owner, repo_name = _get_canonical_repo_from_url(repo_url)
         cmd = GIT_CLONE_CMD.format(repo_url, repo_owner, repo_name)
         os.system(cmd)
 
 
-def get_abs_dir_path(directory: str):
-    rel_path = "content/docs/latest/{}"
-    abs_path = get_abs_content_path(rel_path.format(directory))
+# TODO: This is currently not being used
+# def pull_directories(yaml_external: dict):
+#     content: dict
+#     for target_dir, content in yaml_external.items():
+#         pull_dir = content.get("pullDir", None)
+#         if not pull_dir:
+#             continue
 
-    return abs_path
+#         # abs_target_path = get_abs_dir_path(target_dir)
+#         repo_owner, repo_name = get_canonical_repo_from_url(content.get("source"))
+#         repo_checkout_base_path = os.path.join(CHECKOUT_DIR, repo_owner, repo_name)
+#         repo_checkout_pull_path = os.path.join(repo_checkout_base_path, pull_dir)
 
-
-# ![SPIRE Logo](/doc/images/spire_logo.png)
-# {{< figure src="/img/server_and_agent.png" width="70" caption="Server and Agent" >}}
-
-
-def pull_directories(yaml_external: dict):
-    content: dict
-    for target_dir, content in yaml_external.items():
-        pull_dir = content.get("pullDir", None)
-        if not pull_dir:
-            continue
-
-        abs_target_path = get_abs_dir_path(target_dir)
-        repo_owner, repo_name = get_canonical_repo_from_url(content.get("source"))
-        repo_checkout_base_path = os.path.join(CHECKOUT_DIR, repo_owner, repo_name)
-        repo_checkout_pull_path = os.path.join(repo_checkout_base_path, pull_dir)
-
-        for root, _, files in os.walk(repo_checkout_pull_path):
-            for file in files:
-                relative_path = os.path.join(
-                    root[len(repo_checkout_pull_path) + 1 :], file
-                )
-                copy_file(
-                    base_src_path=repo_checkout_base_path,
-                    pull_dir=pull_dir,
-                    rel_file_path=relative_path,
-                    target_dir=target_dir,
-                    transform_file=content.get("transform", {}).get(file, None),
-                    remove_heading=True,
-                )
+#         for root, _, files in os.walk(repo_checkout_pull_path):
+#             for file in files:
+#                 relative_path = os.path.join(
+#                     root[len(repo_checkout_pull_path) + 1 :], file
+#                 )
+#                 copy_file(
+#                     base_src_path=repo_checkout_base_path,
+#                     pull_dir=pull_dir,
+#                     rel_file_path=relative_path,
+#                     target_dir=target_dir,
+#                     transform_file=content.get("transform", {}).get(file, None),
+#                     remove_heading=True,
+#                 )
 
 
-def pull_files(yaml_external: dict):
+def _pull_files(yaml_external: dict) -> List[str]:
+    generated_files: List[str] = []
     content: dict
     for target_dir, content in yaml_external.items():
         pull_files: List[str] = content.get("pullFiles", None)
         if not pull_files:
             continue
 
-        abs_target_path = get_abs_dir_path(target_dir)
-        repo_owner, repo_name = get_canonical_repo_from_url(content.get("source"))
-        repo_checkout_base_path = os.path.join(CHECKOUT_DIR, repo_owner, repo_name)
+        repo_owner, repo_name = _get_canonical_repo_from_url(content.get("source"))
 
         for rel_file in pull_files:
             filename = os.path.basename(rel_file)
-            copy_file(
-                repo_checkout_path=repo_checkout_base_path,
-                pull_dir="",
-                rel_file_path=rel_file,
+            abs_path_to_source_file = os.path.abspath(
+                os.path.join(CHECKOUT_DIR, repo_owner, repo_name)
+            )
+            abs_path_to_target_file = _copy_file(
+                abs_path_to_repo_checkout_dir=abs_path_to_source_file,
+                rel_path_to_source_file=rel_file,
                 target_dir=target_dir,
                 transform_file=content.get("transform", {}).get(filename, None),
                 remove_heading=True,
+                repo_owner=repo_owner,
+                repo_name=repo_name,
             )
+            generated_files.append(abs_path_to_target_file)
+
+    return generated_files
 
 
-def copy_file(
-    repo_checkout_path: str,
-    pull_dir: str,
-    rel_file_path: str,
+def _generate_gitignore(paths_to_include: List[str]):
+    with open("content/.gitignore", "w") as gitignore:
+        gitignore.write("# THIS FILE IS AUTO-GENERATED. DO NOT MODIFY BY HAND\n\n")
+        for f in paths_to_include:
+            gitignore.write(os.path.relpath(f, "content") + "\n")
+
+
+def _copy_file(
+    abs_path_to_repo_checkout_dir: str,
+    rel_path_to_source_file: str,
     target_dir: str,
     transform_file: dict = {},
     remove_heading: bool = True,
-):
-    file_name = os.path.basename(rel_file_path)
+    repo_owner: str = "",
+    repo_name: str = "",
+) -> str:
+    file_name = os.path.basename(rel_path_to_source_file)
 
-    # create dirs to target file
-    abs_base_src_path = os.path.abspath(repo_checkout_path)
-    abs_path_to_source_file = os.path.abspath(
-        os.path.join(abs_base_src_path, pull_dir, rel_file_path)
-    )
+    rel_path_to_target_file = os.path.join(target_dir, file_name)
     abs_path_to_target_file = os.path.abspath(
-        os.path.join("content/docs/latest", target_dir, file_name)
+        os.path.join("content/docs/latest", rel_path_to_target_file)
     )
 
     path_to_target_file = Path(os.path.dirname(abs_path_to_target_file))
     path_to_target_file.mkdir(parents=True, exist_ok=True)
 
     # we just copy files that aren't markdown
+    abs_path_to_source_file = os.path.join(
+        abs_path_to_repo_checkout_dir, rel_path_to_source_file
+    )
     if os.path.splitext(abs_path_to_target_file)[1] != ".md":
         shutil.copyfile(abs_path_to_source_file, abs_path_to_target_file)
         return
 
     # copy file content
     with open(abs_path_to_target_file, "w") as target_file:
-        content, heading = get_file_content(abs_path_to_source_file, remove_heading)
+        content, heading = _get_file_content(abs_path_to_source_file, remove_heading)
 
         front_matter = None
         if heading:
@@ -171,42 +194,93 @@ def copy_file(
             front_matter = {**front_matter, **transform_file.get("frontMatter", {})}
 
         if front_matter:
-            target_file.writelines(generate_yaml_front_matter(front_matter))
+            target_file.writelines(_generate_yaml_front_matter(front_matter))
 
-        final_content = process_content(content)
+        final_content = _process_content(
+            content=content,
+            abs_path_source_dir=abs_path_to_repo_checkout_dir,
+            rel_path_to_source_file=rel_path_to_source_file,
+            repo_owner=repo_owner,
+            repo_name=repo_name,
+        )
         target_file.write(final_content)
 
-
-def process_content(content: str):
-    # ![SPIRE101](images/SPIRE101.png)
-    match: Match
-    for match in RE_EXTRACT_IMAGES.finditer(content):
-        print(match.group("url"))
-
-    return content
+        return abs_path_to_target_file
 
 
-def main():
-    yaml_external = read_yaml("external.yaml")
-    repos_to_clone: Set[str] = set()
-    directories_to_create: List[str] = []
+def _process_content(
+    content: str,
+    abs_path_source_dir: str,
+    rel_path_to_source_file: str,
+    repo_owner: str,
+    repo_name: str,
+):
+    def repl_images(m: Match[str]):
+        url = m.group("url")
+        alt = m.group("alt")
+        new_url = _copy_asset(
+            url_path=url,
+            abs_path_checkout_dir=abs_path_source_dir,
+            rel_path_to_source_file=rel_path_to_source_file,
+            repo_owner=repo_owner,
+            repo_name=repo_name,
+        )
+        figure = '{{{{< figure src="{}" caption="{}" width="100" >}}}}'.format(
+            new_url, alt
+        )
+        return figure
 
-    content: dict
-    for directory, content in yaml_external.items():
-        directories_to_create.append(directory)
-        print("Create {} directory...".format(directory))
+    def repl_links(m: Match[str]):
+        alt = m.group("alt")
+        rel = m.group("rel")
+        url = m.group("url")
 
-        repo = get_repo_url_from_pull_url(content.get("source"))
-        repos_to_clone.add(repo)
-        print("Pull repo {}...".format(repo))
+        rel_url = url
+        if rel == "/":
+            rel_url = url
+        elif rel == "./":
+            rel_url = os.path.join(os.path.dirname(rel_path_to_source_file), url)
 
-    # Testing, uncomment
-    clone_repos(repos_to_clone)
-    pull_directories(yaml_external)
-    pull_files(yaml_external)
+        new_url = "https://github.com/{}/{}/tree/master/{}".format(
+            repo_owner, repo_name, rel_url
+        )
+
+        new_link = "[{}]({})".format(alt, new_url)
+        return new_link
+
+    parsed_content = RE_EXTRACT_IMAGES.sub(repl_images, content)
+    parsed_content = RE_EXTRACT_LINKS.sub(repl_links, parsed_content)
+
+    return parsed_content
+
+
+def _copy_asset(
+    url_path: str,
+    abs_path_checkout_dir: str,
+    rel_path_to_source_file: str,
+    repo_owner: str,
+    repo_name: str,
+) -> str:
+
+    if url_path.startswith(os.path.sep):
+        rel_path_to_asset = url_path[1:]
+    else:
+        rel_path_to_source_dir = os.path.dirname(rel_path_to_source_file)
+        rel_path_to_asset = os.path.join(rel_path_to_source_dir, url_path)
+
+    path_to_source_asset = os.path.join(abs_path_checkout_dir, rel_path_to_asset)
+    path_to_target_asset = Path(
+        os.path.join("./static/img/checkouts", repo_owner, repo_name, rel_path_to_asset)
+    )
+    path_to_target_asset.parent.mkdir(parents=True, exist_ok=True)
+
+    shutil.copyfile(path_to_source_asset, path_to_target_asset.absolute())
+
+    rel_target_url_path = os.path.join(
+        "/img/checkouts", repo_owner, repo_name, rel_path_to_asset
+    )
+    return rel_target_url_path
 
 
 if __name__ == "__main__":
-    # Testing, uncomment
-    os.system("rm -rf ./checkouts/")
     main()
