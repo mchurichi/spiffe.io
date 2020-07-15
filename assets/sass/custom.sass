@@ -2,12 +2,18 @@
   overflow: hidden
 
   &-section
+    line-height: 1.3
     +desktop
       font-size: 1.5em
     +touch
       font-size: 1.2em
 
   &-title
+    display: block
+    text-transform: uppercase
+    color: $primary
+    font-weight: 300
+
     +desktop
       font-size: 1rem
       margin-bottom: .5rem
@@ -15,18 +21,17 @@
       font-size: .8rem
       margin-bottom: .4rem
 
-    display: block
-    text-transform: uppercase
-    color: $primary
-    font-weight: 300
-
     a
       color: $primary
-      
+
       &:hover
-          color: $blue
+        color: $blue
 
   &-item
+    display: block
+    color: $primary
+    font-weight: 400
+
     +desktop
       font-size: .9rem
       margin-left: .5rem
@@ -35,10 +40,6 @@
       font-size: .7rem
       margin-left: .4rem
       line-height: 110%
-
-    display: block
-    color: $primary
-    font-weight: 400
 
     &:hover
       color: $dark
@@ -53,7 +54,7 @@
 
   &-hr
     background-color: $light-separator
-    margin: 1em 0;
+    margin: 1em 0
     height: 1px
 
 .figure
@@ -77,6 +78,10 @@
 
     +touch
       width: 100%
+
+  .container
+    .section
+      padding: 0rem 1rem
 
 .navbar
   z-index: 20

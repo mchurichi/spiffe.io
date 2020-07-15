@@ -13,7 +13,7 @@
 {{- $stackUrl        := $social.stackoverflow }}
 {{- $youtubeUrl      := $social.youtube }}
 <nav class="navbar is-fixed-top is-light">
-  <div class="container">
+  <div class="container {{ if $isDocsPage }}is-fluid{{ end }} ">
     <div class="navbar-brand">
       {{- if not $isHome }}
       <a class="navbar-item" href="{{ .Site.BaseURL }}">
@@ -32,6 +32,7 @@
 
       <div class="navbar-end">
 
+        {{- if not $isDocsPage -}}
         <a class="navbar-item has-text-weight-bold" href="/downloads/">
           Get SPIRE
         </a>
@@ -39,6 +40,7 @@
         <a class="navbar-item has-text-weight-bold" href="/docs/latest/">
           Documentation
         </a>
+        {{- end -}}
 
         <div class="navbar-item">
           <p class="control">
