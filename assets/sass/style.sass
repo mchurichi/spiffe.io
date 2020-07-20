@@ -45,15 +45,15 @@ $light-separator: #e2e2e2
 @import "toc"
 
 .hero
-  margin: 1rem
+  margin: .8rem 1rem
 
 .hero.is-light
   background-color: inherit
 
 .hero-body
-  padding: 1rem 0rem
+  padding: 0
   .title
-     margin-bottom: 0.5rem
+     margin-bottom: 0
 
 figure
   img
@@ -113,6 +113,10 @@ figure
 .article
 
   .content
+
+    h1:not(:first-child)
+      margin-top: .7em
+
     pre
       background-color: #272822
       color: $white
