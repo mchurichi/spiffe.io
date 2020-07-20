@@ -166,7 +166,7 @@ For more information on configuring AWS EC2 Node Attestors or Resolver plugins, 
 Azure MSI node attestation and resolution
 allows a SPIRE Server to identify and authenticate a SPIRE Agent running on an Azure VM automatically. SPIRE uses MSI tokens in order to attest the agent. The MSI tokens must be scoped to mitigate abuse if intercepted. In brief, it is accomplished through the following:
 
-1.  The SPIRE Agent azure\_msi Node Attestor plugin retrieves an an Azure VM's MSI token, and identifies itself to the SPIRE Server azure\_msi Node Attestor plugin.
+1.  The SPIRE Agent azure\_msi Node Attestor plugin retrieves an Azure VM's MSI token, and identifies itself to the SPIRE Server azure\_msi Node Attestor plugin.
 2.  The SPIRE Server azure\_msi Node Attestor plugin retrieves the JSON Web Key Set (JWKS) document from Azure–via an API call and uses JWKS information to validate the MSI token. 
 3.  The SPIRE Server azure\_msi Node Resolver plugin interacts with Azure to obtain information about the agent VM--such as subscription ID, VM name, network security group, virtual network, and virtual network subnet–to build up a set of attributes about the agent VM that can then be used as node selectors for the Azure node set.
 4.  Once verification takes place, the SPIRE Agent is considered attested, and issued its own SPIFFE ID
