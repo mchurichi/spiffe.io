@@ -7,7 +7,7 @@ weight: 60
 ---
 ## Step 1: Obtain the SPIRE Binaries
 
-Pre-built SPIRE releases can be found on the [SPIRE downloads page](/downloads#spire). The tarballs contain both server and agent binaries.
+Pre-built SPIRE releases can be found on the [SPIRE downloads page](/downloads/#spire-releases). The tarballs contain both server and agent binaries.
 
 If you wish, you may also [build SPIRE from source](https://github.com/spiffe/spire/blob/master/CONTRIBUTING.md).
 
@@ -17,7 +17,7 @@ This introductory guide describes how to install the server and agent on the sam
 
 To install the server and agent:
 
-1. Obtain the latest tarball from the [SPIRE downloads page](/downloads#spire) and then extract it into the **/opt/spire** directory using the following commands:
+1. Obtain the latest tarball from the [SPIRE downloads page](/downloads/#spire-releases) and then extract it into the **/opt/spire** directory using the following commands:
 
     ```console
     wget https://github.com/spiffe/spire/releases/download/{{< spire-latest "tag" >}}/{{< spire-latest "tarball" >}}
@@ -45,11 +45,11 @@ However, to get a simple deployment up and running for demonstration purposes, y
 
 To configure the items in steps 1, 2, and 4, edit the server’s configuration file, located in **/opt/spire/conf/server/server.conf**.
 
-See [Configuring SPIRE](/spire/docs/configuring/) for details about how to configure SPIRE, in particular Node Attestation and Workload Attestation.
+See [Configuring SPIRE](/docs/latest/spire/using/configuring/) for details about how to configure SPIRE, in particular Node Attestation and Workload Attestation.
 
 Note that a SPIRE Server must be restarted once its configuration has been modified for changes to take effect.
 
-See [Install SPIRE Agents](/spire/docs/install-agents/) to learn how to install the SPIRE Agent.
+See [Install SPIRE Agents](/docs/latest/spire/installing/install-agents/) to learn how to install the SPIRE Agent.
 
 # How to install the SPIRE Server on Kubernetes
 
@@ -141,7 +141,7 @@ To allow the server to read and write to this configmap, a ClusterRole must be c
 
 The server is configured in the Kubernetes configmap specified in **server-configmap.yaml**, which specifies a number of important directories, notably **/run/spire/data** and **/run/spire/config**. These volumes are bound in when the server container is deployed.
 
-Follow the [Configuring SPIRE](/spire/docs/configuring/) section for full details on how to configure the SPIRE Server, in particular Node Attestation and Workload Attestation.
+Follow the [Configuring SPIRE](/docs/latest/spire/using/configuring/) section for full details on how to configure the SPIRE Server, in particular Node Attestation and Workload Attestation.
 
 Note that a SPIRE Server must be restarted once its configuration has been modified for changes to take effect.
 
@@ -202,4 +202,4 @@ When the server deploys, it binds in the volumes summarized in the following tab
 
 # Where next?
 
-Once you've installed the SPIRE Server, consider reviewing the guide on [How to install SPIRE Agents](/spire/docs/install-agents/).
+Once you've installed the SPIRE Server, consider reviewing the guide on [How to install SPIRE Agents](/docs/latest/spire/installing/install-agents/).

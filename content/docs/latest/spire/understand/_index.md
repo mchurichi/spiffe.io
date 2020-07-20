@@ -8,4 +8,4 @@ SPIRE is a production-ready implementation of the [SPIFFE](https://github.com/sp
 
 {{< sectiontoc "spire-understand" >}}
 
-You may also be interested to [try out SPIRE](/spire/try/) by following some step-by step tutorials, or reviewing the [SPIRE documentation](/spire/docs/) for a detailed guide on how to install and configure SPIRE for different environments and use-cases.
+You may also be interested to [try out SPIRE](/docs/latest/spire/installing/) by following some step-by step tutorials, or reviewing the [SPIRE documentation](/docs/latest/spire/installing/) for a detailed guide on how to install and configure SPIRE for different environments and use-cases.

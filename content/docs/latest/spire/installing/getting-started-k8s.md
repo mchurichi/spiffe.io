@@ -22,7 +22,7 @@ In this introduction to SPIRE on Kubernetes you will learn how to:
 The steps in this guide have been tested on these Kubernetes versions: 1.13.1, 1.12.4, and 1.10.12.
 
 {{< info >}}
-If you are using Minikube to run this tutorial you should specify some special flags as described [here](#minikube).
+If you are using Minikube to run this tutorial you should specify some special flags as described [here](#considerations-when-using-minikube).
 {{< /info >}}
 
 # Obtain the Required Files
@@ -258,4 +258,4 @@ As configured, the SPIRE agent does not verify the identity of the Kubernetes ku
 
 # Next steps
 
-* [Review the SPIRE Documentation](/spire/docs/) to learn how to configure SPIRE for your environment.
+* [Review the SPIRE Documentation](/docs/latest/spire/using/) to learn how to configure SPIRE for your environment.

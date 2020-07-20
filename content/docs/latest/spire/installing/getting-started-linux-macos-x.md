@@ -73,7 +73,7 @@ Server is healthy.
 
 # Creating a join token to attest the agent to the server
 
-A join token is one of the many available agent attestor methods. It is a one-time-use, pre-shared key that attests (authenticates) the SPIRE agent to the SPIRE server. Other agent attestation methods include AWS/GCP instance identity tokens and X.509 certificates. To see a complete list of available attestors, click [here](/spire/docs/registering/#1-defining-the-spiffe-id-of-the-agent).
+A join token is one of the many available agent attestor methods. It is a one-time-use, pre-shared key that attests (authenticates) the SPIRE agent to the SPIRE server. Other agent attestation methods include AWS/GCP instance identity tokens and X.509 certificates. To see a complete list of available attestors, click [here](/docs/latest/spire/using/registering/#1-defining-the-spiffe-id-of-the-agent).
 
 Generate a one-time-use token to use to attest the agent:
 
@@ -85,7 +85,7 @@ Token: <token_string>
 Make a note of the token, you will need it in the next step to attest the agent on initial startup.
 
 {{< info >}}
-A Join Token is just one of the many available agent attestation methods. To see a complete list of available attestors, click [here](/spire/docs/registering/#1-defining-the-spiffe-id-of-the-agent).
+A Join Token is just one of the many available agent attestation methods. To see a complete list of available attestors, click [here](/docs/latest/spire/using/registering/#1-defining-the-spiffe-id-of-the-agent).
 {{< /info >}}
 
 # Starting the SPIRE Agent
@@ -127,7 +127,7 @@ Selector      : unix:uid:501
 ```
 
 {{< info >}}
-`unix` is just one of the available workload attestation methods. To see a complete list of available attestors, click [here](/spire/docs/registering/#2-defining-the-spiffe-id-of-the-workload).
+`unix` is just one of the available workload attestation methods. To see a complete list of available attestors, click [here](/docs/latest/spire/using/registering/#2-defining-the-spiffe-id-of-the-workload).
 {{< /info >}}
 
 
@@ -200,4 +200,4 @@ Certificate:
 
 # Next steps
 
-* [Review the SPIRE Documentation](/spire/docs/) to learn how to configure SPIRE for your environment.
+* [Review the SPIRE Documentation](/docs/latest/spire/using/configuring/) to learn how to configure SPIRE for your environment.

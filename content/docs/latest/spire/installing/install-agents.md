@@ -8,7 +8,7 @@ weight: 70
 
 ## Step 1: Obtain the SPIRE Binaries {#step-1}
 
-Pre-built SPIRE releases can be found on the [SPIRE downloads page](/downloads#spire). The tarballs contain both server and agent binaries.
+Pre-built SPIRE releases can be found on the [SPIRE downloads page](/downloads/#spire-releases). The tarballs contain both server and agent binaries.
 
 If you wish, you may also [build SPIRE from source](https://github.com/spiffe/spire/blob/master/CONTRIBUTING.md).
 
@@ -18,7 +18,7 @@ This introductory guide describes how to install the server and agent on the sam
 
 To install the server and agent:
 
-1. Obtain the latest tarball from the [SPIRE downloads page](/downloads#spire) and then extract it into the **/opt/spire** directory using the following commands:
+1. Obtain the latest tarball from the [SPIRE downloads page](/downloads/#spire-releases) and then extract it into the **/opt/spire** directory using the following commands:
 
     ```console
     wget https://github.com/spiffe/spire/releases/download/{{< spire-latest "tag" >}}/{{< spire-latest "tarball" >}}
@@ -35,16 +35,16 @@ To install the server and agent:
 
 ## Step 3: Configure the Agent {#step-3}
 
-Once the SPIRE Agent has been installed, you need to configure it for your environment. See [Configuring SPIRE](/spire/docs/configuring/) for details about how to configure SPIRE, in particular Node Attestation and Workload Attestation.
+Once the SPIRE Agent has been installed, you need to configure it for your environment. See [Configuring SPIRE](/docs/latest/spire/using/configuring/) for details about how to configure SPIRE, in particular Node Attestation and Workload Attestation.
 
 Note that the SPIRE Agent must be restarted once its configuration has been modified for changes to take effect.
 
-If you haven't already, see [Install SPIRE Server](/spire/docs/install-server/) to learn how to install the SPIRE Server.
+If you haven't already, see [Install SPIRE Server](/docs/latest/spire/installing/install-server/) to learn how to install the SPIRE Server.
 
 # Installing SPIRE Agents on Kubernetes
 
 {{< warning >}}
-You must run all commands from the directory containing the **.yaml** files used for configuration. See [Obtain the Required Files](/spire/docs/install-server#section-1) section of the SPIRE Server installation guide for details.
+You must run all commands from the directory containing the **.yaml** files used for configuration. See [Obtain the Required Files](/docs/latest/spire/installing/install-server/#section-1) section of the SPIRE Server installation guide for details.
 {{< /warning >}}
 
 To install SPIRE Agents on Kubernetes, you:
@@ -87,7 +87,7 @@ $ kubectl apply -f agent-configmap.yaml
 
 The **agent-configmap.yaml** file specifies a number of important directories, notably **/run/spire/sockets** and **/run/spire/config**. These directories are bound in when the agent container is deployed.
 
-Follow the [Configuring SPIRE](/spire/docs/configuring/) section for full details on how to configure the SPIRE Agent, in particular Node Attestation and Workload Attestation.
+Follow the [Configuring SPIRE](/docs/latest/spire/using/configuring/) section for full details on how to configure the SPIRE Agent, in particular Node Attestation and Workload Attestation.
 
 Note that the a SPIRE Agent must be restarted once its configuration has been modified for changes to take effect.
 
@@ -120,11 +120,11 @@ When the agent deploys, it binds the volumes summarized in the following table:
 
 | Volume | Description | Mount Location |
 | :------ |:---------- | :------------- |
-| **spire-config** | The spire-agent configmap created in the  [Create Agent Configmap](#create-agent-configmap) step. | **/run/spire/config** |
+| **spire-config** | The spire-agent configmap created in the  [Create Agent Configmap](#step-2-create-agent-configmap) step. | **/run/spire/config** |
 | **spire-sockets** | The hostPath, which will be shared with all other pods running on the same worker host. It contains a UNIX domain socket that workloads use to communicate with the agent API. | **/run/spire/sockets** |
 
 # Where next?
 
-If you haven't already, see [Install SPIRE Server](/spire/docs/install-server/) to learn how to install the SPIRE Server.
+If you haven't already, see [Install SPIRE Server](/docs/latest/spire/installing/install-server/) to learn how to install the SPIRE Server.
 
-Once you've installed SPIRE Server and Agents, consider reviewing the guide on [Configuring the SPIRE Server and Agents](/spire/docs/configuring/).
+Once you've installed SPIRE Server and Agents, consider reviewing the guide on [Configuring the SPIRE Server and Agents](/docs/latest/spire/using/configuring/).

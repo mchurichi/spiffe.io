@@ -10,4 +10,4 @@ weight: 20
 
 ---
 
-You can find more presentations on a variety of topics concerning SPIFFE and SPIRE on our [Community Presentations](/community/presentations/) page.
+You can find more presentations on a variety of topics concerning SPIFFE and SPIRE on our [Community Presentations](/docs/latest/spiffe/community-presentations/) page.

@@ -54,13 +54,13 @@ If this configuration is changed from the default on the server, then the config
 # Configuring node attestation
 _This configuration applies to the SPIRE Server and SPIRE Agent_
 
-A SPIFFE Server identifies and attests Agents through the process of *node attestation* and *resolution* (read more about this in [SPIRE Concepts](/spire/concepts)). This is accomplished through Node Attestor and Node Resolver plugins, which you configure and enable in the server. 
+A SPIFFE Server identifies and attests Agents through the process of *node attestation* and *resolution* (read more about this in [SPIRE Concepts](/docs/latest/spire/understand/concepts/)). This is accomplished through Node Attestor and Node Resolver plugins, which you configure and enable in the server. 
 
 Your choice of node attestation method determines which node-attestor plugins you configure SPIRE to use in Server Plugins and Agent Plugins sections of the SPIRE configuration files. You must configure _at least one_ node attestor on the server and _only one_ node attestor on each Agent.
 
 ## Attestation of nodes running Kubernetes {#customize-server-k8s-attestation}
 
-To issue identities to workloads running in a Kubernetes cluster, it is necessary to deploy a SPIRE Agent to each node in that cluster that is running a workload ([read more](/spire/docs/install-agents/#installing-spire-agents-on-kubernetes) on how to install SPIRE Agents on Kubernetes).
+To issue identities to workloads running in a Kubernetes cluster, it is necessary to deploy a SPIRE Agent to each node in that cluster that is running a workload ([read more](/docs/latest/spire/installing/install-agents/#installing-spire-agents-on-kubernetes) on how to install SPIRE Agents on Kubernetes).
 
 Service Account Tokens can be validated using the Kubernetes [Token Review API](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.10/#tokenreview-v1-authentication-k8s-io). Because of this, the SPIRE Server does not itself need to be running on Kubernetes, and a single SPIRE Server may support agents running on multiple Kubernetes clusters with PSAT attestation enabled.
 
@@ -175,7 +175,7 @@ allows a SPIRE Server to identify and authenticate a SPIRE Agent running on an A
 {{< warning >}}
 The default resource–assigned by the agent plugin–is scoped relatively widely; it uses the Azure Resource Manager(`https://management.azure.com` endpoint)'s resource id. For security reasons, consider using a custom resource id, to scope more narrowly. 
 
-If you configure a custom resource ID in the agent configuration file, you must specify custom resource IDs for each tenant, in the `NodeAttestor` stanza of the `server.conf` configuration file. (See [Configure the Server](#configure-the-server).)
+If you configure a custom resource ID in the agent configuration file, you must specify custom resource IDs for each tenant, in the `NodeAttestor` stanza of the `server.conf` configuration file.
 {{< /warning >}}
 
 For more information on configuring Azure MSI Node Attestors or Resolver plugins, refer to the corresponding SPIRE documentation for the Azure MSI [SPIRE Server Node Attestor](https://github.com/spiffe/spire/blob/master/doc/plugin_server_nodeattestor_azure_msi.md) and [SPIRE Server  Node Resolver](https://github.com/spiffe/spire/blob/master/doc/plugin_server_noderesolver_azure_msi.md) on the SPIRE Server, and the [SPIRE Agent Node Attestor](https://github.com/spiffe/spire/blob/master/doc/plugin_agent_nodeattestor_azure_msi.md) on the agent.
@@ -231,7 +231,7 @@ The data-store is where SPIRE Server persists dynamic configuration such as regi
 
 The SPIRE Server can be configured to utilize different SQL-compatible storage backends by configuring the default SQL data-store plugin as described below. A complete reference for how this block is configured can be found in the [SPIRE documentation](https://github.com/spiffe/spire/blob/master/doc/plugin_server_datastore_sql.md).
 
-Alternatively, SPIRE can be configured to use non-SQL compatible storage backends through third party datastore plugins. The guide on [Extending SPIRE](/spire/docs/extending/) covers this in more detail.
+Alternatively, SPIRE can be configured to use non-SQL compatible storage backends through third party datastore plugins. The guide on [Extending SPIRE](/docs/latest/spire/developing/extending/) covers this in more detail.
 
 ### Configure SQLite as a SPIRE data-store
 
@@ -319,7 +319,7 @@ Currently SPIRE supports two key management strategies on both the Agent and Ser
 
 * **Store on disk**. In this strategy, keys and certificates are stored in a specified file on disk. An advantage of this approach is they survive a restart of the SPIRE Server or Agent. A disadvantage is that since they keys are stored in files on disk, additional precautions must be taken to prevent a malicious process from reading those files. This strategy can be managed by enabling and configuring the disk key manager plugin for the [SPIRE Server](https://github.com/spiffe/spire/blob/master/doc/plugin_server_keymanager_disk.md) and/or [SPIRE Agent](https://github.com/spiffe/spire/blob/master/doc/plugin_agent_keymanager_disk.md).
 
-Alternatively, SPIRE can be configured to integrating a custom backend such as a secret store through third party key manager plugins. The guide on [Extending SPIRE](/spire/docs/extending/) covers this in more detail.
+Alternatively, SPIRE can be configured to integrating a custom backend such as a secret store through third party key manager plugins. The guide on [Extending SPIRE](/docs/latest/spire/developing/extending/) covers this in more detail.
 
 # Configuring which trust root / "upstream authority" your application will use
 _This configuration applies to the SPIRE Server_
@@ -413,4 +413,4 @@ By default, SPIRE logs go to STDOUT. However the SPIRE Agent and Server can be c
 
 # Where next?
 
-Once you've configured your Server and Agents, consider reviewing the guide on [Registering Workloads](/spire/docs/registering/).
+Once you've configured your Server and Agents, consider reviewing the guide on [Registering Workloads](/docs/latest/spire/using/registering/).

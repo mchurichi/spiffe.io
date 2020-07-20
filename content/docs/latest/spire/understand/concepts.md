@@ -6,7 +6,7 @@ description: An overview of SPIRE's architecture and fundamentals
 weight: 20
 ---
 
-SPIRE is a production-ready implementation of the [SPIFFE APIs](/spiffe) that performs node and workload attestation in order to securely issue SVIDs to workloads, and verify the SVIDs of other workloads, based on a predefined set of conditions. 
+SPIRE is a production-ready implementation of the [SPIFFE APIs](/docs/latest/spiffe/overview/) that performs node and workload attestation in order to securely issue SVIDs to workloads, and verify the SVIDs of other workloads, based on a predefined set of conditions. 
 
 {{< info >}}
 SPIRE is just one implementation of the SPIFFE specification. For a list of current implementations, see the [spiffe.io homepage](/). 
@@ -103,7 +103,7 @@ In order for SPIRE to identify a workload, you must register the workload with t
 
 A registration entry maps an identity -- in the form of a SPIFFE ID -- to a set of properties known as selectors that the workload must possess in order to be issued a particular identity. During workload attestation, the agent uses these selector values to verify the workload’s identity. 
 
-Workload registration is covered in detail in the [SPIRE Documentation](/spire/docs/registering/)
+Workload registration is covered in detail in the [SPIRE Documentation](/docs/latest/spire/using/registering/)
 
 ## Attestation 
 

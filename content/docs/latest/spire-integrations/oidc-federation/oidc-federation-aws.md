@@ -5,7 +5,7 @@ kind: spire-oidc
 weight: 10
 ---
 
-This tutorial builds on the [Kubernetes Quickstart](/spire/try/getting-started-k8s/) guide to describe how a SPIRE identified workload can, using a JWT-SVID, authenticate to Amazon AWS APIs, assume an AWS IAM role, and retrieve data from an AWS S3 bucket. This avoids the need to create and deploy AWS IAM credentials with the workload itself.
+This tutorial builds on the [Kubernetes Quickstart](/docs/latest/spire/installing/getting-started-k8s/) guide to describe how a SPIRE identified workload can, using a JWT-SVID, authenticate to Amazon AWS APIs, assume an AWS IAM role, and retrieve data from an AWS S3 bucket. This avoids the need to create and deploy AWS IAM credentials with the workload itself.
 
 In this tutorial you will learn how to:
 
@@ -18,9 +18,9 @@ In this tutorial you will learn how to:
 
 Note the following required accounts, prerequisites, and limitations before starting this tutorial:
 
-* You'll need access to the Kubernetes environment that you configured when going through [Kubernetes Quickstart](/spire/try/getting-started-k8s/). The Kubernetes environment must be able to expose an Ingress to the public internet. _Note: This is generally not true for local Kubernetes environments such as Minikube._
+* You'll need access to the Kubernetes environment that you configured when going through [Kubernetes Quickstart](/docs/latest/spire/installing/getting-started-k8s/). The Kubernetes environment must be able to expose an Ingress to the public internet. _Note: This is generally not true for local Kubernetes environments such as Minikube._
 * You'll need access to the AWS console with an account that has permissions to configure an identity provider, IAM policy, IAM role, and S3 bucket.
-* You'll need the ability to configure a DNS A record for the SPIRE OIDC Discovery document endpoint (see [Part 2](#part-2-configure-dns-for-the-oidc-discovery-provider-ip-address))
+* You'll need the ability to configure a DNS A record for the SPIRE OIDC Discovery document endpoint (see [Part 2](#part-2-configure-dns-for-the-oidc-discovery-ip-address))
 
 
 # Part 1: Configure SPIRE Components
@@ -38,9 +38,9 @@ The following strings in the YAML files must be substituted for values specific 
 | String | Description | Files to Change |
 | --- | --- | --- |
 | MY\_EMAIL\_ADDRESS | Specify a valid email address to satisfy the terms of service for the Let's Encrypt certificate authority used in AWS OIDC federation. No email will actually be sent to this address. Example value: user@example.org | oidc-dp-configmap.yaml (1 instance) |
-| MY\_DISCOVERY\_DOMAIN | Replace with the domain that you will use in the A record for the OIDC Discovery document endpoint. See [Part 2](#part-2-configure-dns-for-the-oidc-discovery-provider-ip-address) for details. Example value: `oidc-discovery.example.org` | ingress.yaml (2 instances), oidc-dp-configmap.yaml (1 instance), server-configmap.yaml (1 instance) |
+| MY\_DISCOVERY\_DOMAIN | Replace with the domain that you will use in the A record for the OIDC Discovery document endpoint. See [Part 2](#part-2-configure-dns-for-the-oidc-discovery-ip-address) for details. Example value: `oidc-discovery.example.org` | ingress.yaml (2 instances), oidc-dp-configmap.yaml (1 instance), server-configmap.yaml (1 instance) |
 
-In the YAML files, instances of the `example.org` [trust domain](/spiffe/concepts/#trust-domain) are valid to use for this tutorial and do not need to be changed.
+In the YAML files, instances of the `example.org` [trust domain](/docs/latest/spiffe/concepts/#trust-domain) are valid to use for this tutorial and do not need to be changed.
 
 ## Deploy OIDC Discovery Provider Configmap
 
@@ -288,7 +288,7 @@ To allow the workload from outside AWS to access AWS S3, add the workload's SPIF
 
 4. Click the **Trust relationships** tab near the middle of the page and then click **Edit trust relationship**.
 
-5. In the JSON access control policy, add a condition line at the end of the `StringEquals` attribute to restrict access to workloads matching the workload SPIFFE ID that was assigned in the [Kubernetes Quickstart](/spire/try/getting-started-k8s/). The new line to add is:
+5. In the JSON access control policy, add a condition line at the end of the `StringEquals` attribute to restrict access to workloads matching the workload SPIFFE ID that was assigned in the [Kubernetes Quickstart](/docs/latest/spire/installing/getting-started-k8s/). The new line to add is:
 
    ```json
    "MY_DISCOVERY_DOMAIN:sub": "spiffe://example.org/ns/default/sa/default"
@@ -415,7 +415,7 @@ When you are finished running this tutorial, you can use the following commands 
 
 ## Kubernetes Cleanup
 
-Keep in mind that these commands will also remove the setup that you configured in the [Kubernetes Quickstart](/spire/try/getting-started-k8s/).
+Keep in mind that these commands will also remove the setup that you configured in the [Kubernetes Quickstart](/docs/latest/spire/installing/getting-started-k8s/).
 
 1. Delete the workload container:
 

@@ -56,7 +56,7 @@ SPIRE comes with a set of built-in Notifier plugins for the [Server](https://git
 
 First party plugins can be enabled by including the appropriate configuration stanza in the `plugins` section of the Server or Agent configuration file. 
 
-*   For instructions on modifying the Server and Agent configuration files, please follow [Configuring the SPIRE Server](/spire/docs/configuring).
+*   For instructions on modifying the Server and Agent configuration files, please follow [Configuring the SPIRE Server](/docs/latest/spire/using/configuring/).
 *   For more information on enabling the plugins in the Server, read the [Server configuration guide](https://github.com/spiffe/spire/blob/master/doc/spire_server.md).
 *   For more information on enabling the plugins in the Agent, read the [Agent configuration guide](https://github.com/spiffe/spire/blob/master/doc/spire_agent.md).
 
