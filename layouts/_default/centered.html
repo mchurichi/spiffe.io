@@ -1,0 +1,65 @@
+{{ define "main" }}
+{{ partial "tabs.html" . }}
+
+<!-- {{ partial "hero.html" . }} -->
+
+<section class="hero is-light">
+  <div class="container">
+    <div class="hero-body" style="width: 75%; margin: auto;">
+      <p
+        class="title is-size-2 is-size-2-mobile has-text-weight-light{{ if isset .Params "description" }} is-spaced{{ end }}">
+        {{ .Title }}
+      </p>
+      {{- with .Params.description }}
+      <p class="subtitle is-size-5 is-size-5-mobile">
+        {{ . | markdownify }}
+      </p>
+      {{- end }}
+    </div>
+  </div>
+</section>
+
+<!-- {{ partial "article.html" . }} -->
+
+{{- $docs := .CurrentSection.RegularPages }}
+{{- $multipleDocs := gt (len $docs) 1 }}
+{{- $currentUrl   := .URL }}
+{{- $sectionCount := 3 }}
+{{- $sectionCountStringSingular := "third" }}
+{{- if .Params.toc }}
+{{- $sectionCount = add $sectionCount 1 }}
+{{- end }}
+{{- if eq $sectionCount 4 }}
+{{- $sectionCountStringSingular = "quarter" }}
+{{- end}}
+
+<article class="article">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-full-mobile">
+        <div class="content" style="margin: auto">
+          <!-- <div class="is-hidden-desktop">
+            {{ partial "dropdown.html" . }}
+          </div> -->
+          <section class="is-inner-content">
+            {{ .Content }}
+          </section>
+        </div>
+      </div>
+      <!-- {{- if .Params.toc }}
+      <div class="column is-one-{{ $sectionCountStringSingular }} is-toc-column is-hidden-touch">
+        
+        <aside class="is-toc-container">
+          <div id="toc">
+            {{ .TableOfContents }}
+          </div>
+        </aside>
+       
+      </div>
+      {{- end }} -->
+    </div>
+  </div> <!-- .container -->
+
+</article>
+
+{{ end }}
