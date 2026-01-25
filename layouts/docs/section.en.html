@@ -3,5 +3,9 @@
 {{ end }}
 
 {{ define "main" }}
-{{ partial "docs/dashboard.html" . }}
+  {{- if .Params.redirect -}}
+    {{ partial "redirect-page.html" . }}
+  {{- else -}}
+    {{ partial "docs/dashboard.html" . }}
+  {{- end -}}
 {{ end }}
